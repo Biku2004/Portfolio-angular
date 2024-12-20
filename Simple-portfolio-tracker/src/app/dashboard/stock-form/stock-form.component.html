@@ -1,0 +1,46 @@
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-6 text-center">Add/Edit Stock</h1>
+    <form (ngSubmit)="onSubmit()" #stockForm="ngForm" class="max-w-lg mx-auto bg-white bg-gray-700 p-6 rounded-lg shadow-md">
+      <div class="mb-4">
+        <label class="block text-gray-500 text-gray-300">Stock Name</label>
+        <input type="text" class="w-full p-2 border rounded" [(ngModel)]="stock.name" name="name" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-500 text-gray-300">Ticker</label>
+        <input type="text" class="w-full p-2 border rounded" [(ngModel)]="stock.ticker" name="ticker" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-500 text-gray-300">Quantity</label>
+        <input type="number" class="w-full p-2 border rounded" [(ngModel)]="stock.quantity" name="quantity" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-500 text-gray-300">Buy Price</label>
+        <input type="number" class="w-full p-2 border rounded" [(ngModel)]="stock.buyPrice" name="buyPrice" required>
+      </div>
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-full shadow-md hover:bg-blue-600">Save</button>
+    </form>
+  </div>
+
+
+  <!-- <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-6 text-center">Add/Edit Stock</h1>
+    <form (ngSubmit)="onSubmit()" #stockForm="ngForm" class="max-w-lg mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <div class="mb-4">
+        <label class="block text-gray-700 dark:text-gray-300">Stock Name</label>
+        <input type="text" class="w-full p-2 border rounded" [(ngModel)]="stock.name" name="name" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 dark:text-gray-300">Ticker</label>
+        <input type="text" class="w-full p-2 border rounded" [(ngModel)]="stock.ticker" name="ticker" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 dark:text-gray-300">Quantity</label>
+        <input type="number" class="w-full p-2 border rounded" [(ngModel)]="stock.quantity" name="quantity" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 dark:text-gray-300">Buy Price</label>
+        <input type="number" class="w-full p-2 border rounded" [(ngModel)]="stock.buyPrice" name="buyPrice" required>
+      </div>
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-full shadow-md hover:bg-blue-600">Save</button>
+    </form>
+  </div> -->
