@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 // import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import { StockService } from '../../services/StockService';
+import { CommonModule } from '@angular/common';
 
 
 interface Stock {
@@ -15,7 +16,7 @@ interface Stock {
 @Component({
   selector: 'app-stock-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,CommonModule],
   templateUrl: './stock-form.component.html',
   styleUrl: './stock-form.component.css'
 })
@@ -27,6 +28,7 @@ export class StockFormComponent implements OnInit {
     quantity: 0,
     buyPrice: 0
   };
+  isStockFormVisible: boolean = false;
 
   constructor(private stockService: StockService) { }
 
@@ -37,5 +39,8 @@ export class StockFormComponent implements OnInit {
     this.stockService.saveStock(this.stock).subscribe(response => {
       // Handle response
     });
+  }
+  hideStockForm() {
+    this.isStockFormVisible = false;
   }
 }
