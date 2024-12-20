@@ -11,6 +11,7 @@ interface Stock {
   ticker: string;
   quantity: number;
   buyPrice: number;
+  change: number;
 }
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +23,7 @@ interface Stock {
 
 export class DashboardComponent implements OnInit {
   totalValue: number = 0;
-  topStock: any = { name: 'N/A', ticker: 'N/A', change: 0 };
+  topStock: Stock = { id: 0, name: 'N/A', ticker: 'N/A', quantity: 0, buyPrice: 0 , change: 0};
   portfolioDistribution: any = {};
   isStockFormVisible: boolean = false;
 
