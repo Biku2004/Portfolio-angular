@@ -108,6 +108,7 @@ export class StockFormComponent implements OnInit {
   constructor(
     private crudService: CrudService,
     private stockService: StockService,
+    private eventEmitterService: EventEmitterService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -159,10 +160,12 @@ export class StockFormComponent implements OnInit {
   onSubmit() {
     if (this.isEditMode) {
       this.crudService.updateStock(this.stock).subscribe((response: Stock) => {
+        this.eventEmitterService.onStockUpdated();
         this.router.navigate(['/dashboard']);
       });
     } else {
       this.crudService.saveStock(this.stock).subscribe((response: Stock) => {
+        this.eventEmitterService.onStockAdded();
         this.router.navigate(['/dashboard']);
       });
     }

@@ -13,4 +13,8 @@ export class EventEmitterService {
   onStockAdded() {
     this.invokeStockListComponentFunction.emit();
   }
+
+  onStockUpdated() {
+    this.invokeStockListComponentFunction.emit();
+  }
 }

@@ -45,7 +45,7 @@ export class StockService {
   constructor(private http: HttpClient) {}
 
   getStockPrice(symbol: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/price/${symbol}`);
+    return this.http.get<any>(`${this.apiUrl}/${symbol}/price`);
   }
 
   getMarketStatus(exchange: string): Observable<any> {
@@ -53,7 +53,7 @@ export class StockService {
   }
 
   getMarketNews(symbol: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/market-news/${symbol}`);
+    return this.http.get<any>(`${this.apiUrl}/${symbol}/market-news`);
   }
 
   getBasicFinancials(symbol: string): Observable<any> {
