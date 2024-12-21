@@ -12,7 +12,7 @@
             <th class="px-4 py-2">Quantity</th>
             <th class="px-4 py-2">Buy Price</th>
             <th class="px-4 py-2">Current Price</th>
-            <!-- <th class="px-4 py-2">Total Value</th> -->
+            <th class="px-4 py-2">Total Value</th>
             <th class="px-4 py-2">Profit/Loss</th>
             <th class="px-4 py-2">Profit/Loss (%)</th>
             <th class="px-4 py-2">Actions</th>
@@ -25,7 +25,7 @@
             <td class="border px-4 py-2">{{ stock.quantity }}</td>
             <td class="border px-4 py-2">{{ stock.buyPrice | currency }}</td>
             <td class="border px-4 py-2">{{ stock.currentPrice | currency }}</td>
-            <!-- <td class="border px-4 py-2">{{ stock.totalValue | currency }}</td> -->
+            <td class="border px-4 py-2">{{ stock.totalValue | currency }}</td>
             <td class="border px-4 py-2">{{ stock.profitLoss | currency }}</td>
             <td class="border px-4 py-2">{{ stock.profitLossPercent | percent:'1.2-2':'en-US' }}</td>
             <td class="border px-4 py-2">

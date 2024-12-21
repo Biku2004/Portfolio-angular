@@ -69,8 +69,20 @@ export class StockListComponent implements OnInit {
         stock.totalValue = stock.currentPrice * stock.quantity;
         stock.profitLoss = (stock.currentPrice - stock.buyPrice) * stock.quantity;
         stock.profitLossPercent = ((stock.currentPrice - stock.buyPrice) / stock.buyPrice) * 100;
+        // this.saveStock(stock);
       }
     });
+  }
+
+  saveStock(stock: Stock): void {
+    this.crudService.updateStock(stock).subscribe(
+      () => {
+        this.loadStocks();
+      },
+      error => {
+        console.error('Error updating stock:', error);
+      }
+    );
   }
 
   reloadStocks() {

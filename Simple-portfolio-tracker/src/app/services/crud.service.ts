@@ -8,8 +8,12 @@ interface Stock {
   ticker: string;
   quantity: number;
   buyPrice: number;
-}
+  currentPrice?: number;
+  totalValue?: number;
+  profitLoss?: number;
+  profitLossPercent?: number;
 
+}
 @Injectable({
   providedIn: 'root'
 })
