@@ -1,7 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { StockFormComponent } from './stock-form/stock-form.component';
 import { StockListComponent } from './stock-list/stock-list.component';
-import { StockService } from '../services/StockService';
+import { StockService } from '../services/stock.service';
 import { CurrencyPipe, PercentPipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 
@@ -23,7 +23,7 @@ interface Stock {
 
 export class DashboardComponent implements OnInit {
   totalValue: number = 0;
-  topStock: Stock = { id: 0, name: 'N/A', ticker: 'N/A', quantity: 0, buyPrice: 0 , change: 0};
+  topStock: Stock = { id: 0, name: 'N/A', ticker: 'N/A', quantity: 0, buyPrice: 0, change: 0 };
   portfolioDistribution: any = {};
   isStockFormVisible: boolean = false;
 
@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
   calculateMetrics() {
     this.stockService.getPortfolioMetrics().subscribe(metrics => {
       this.totalValue = metrics.totalValue;
-      this.topStock = metrics.topStock;
+      this.topStock = metrics.topStock || { id: 0, name: 'N/A', ticker: 'N/A', quantity: 0, buyPrice: 0 };
       this.portfolioDistribution = metrics.portfolioDistribution;
       this.renderChart();
     });

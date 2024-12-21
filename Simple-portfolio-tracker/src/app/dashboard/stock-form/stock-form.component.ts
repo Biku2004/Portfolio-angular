@@ -74,9 +74,11 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { StockService } from '../../services/StockService';
+import { CrudService } from '../../services/crud.service';
+import { StockService } from '../../services/stock.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EventEmitterService } from '../../services/event-emitter.service';
 
 interface Stock {
   id?: number;
@@ -104,6 +106,7 @@ export class StockFormComponent implements OnInit {
   isEditMode: boolean = false;
 
   constructor(
+    private crudService: CrudService,
     private stockService: StockService,
     private route: ActivatedRoute,
     private router: Router
@@ -113,7 +116,7 @@ export class StockFormComponent implements OnInit {
     const stockId = this.route.snapshot.paramMap.get('id');
     if (stockId) {
       this.isEditMode = true;
-      this.stockService.getStockById(+stockId).subscribe((stock: Stock) => {
+      this.crudService.getStockById(+stockId).subscribe((stock: Stock) => {
         this.stock = stock;
       });
     }
@@ -122,8 +125,8 @@ export class StockFormComponent implements OnInit {
   fetchStockSuggestions() {
     if (this.stock.ticker.length > 1) {
       this.stockService.getStockSuggestions(this.stock.ticker).subscribe(data => {
-        if (data && data['bestMatches']) {
-          this.suggestions = data['bestMatches'];
+        if (data && data.result) {
+          this.suggestions = data.result;
         } else {
           this.suggestions = [];
         }
@@ -135,11 +138,11 @@ export class StockFormComponent implements OnInit {
 
   onSubmit() {
     if (this.isEditMode) {
-      this.stockService.updateStock(this.stock).subscribe((response: Stock) => {
+      this.crudService.updateStock(this.stock).subscribe((response: Stock) => {
         this.router.navigate(['/dashboard']);
       });
     } else {
-      this.stockService.saveStock(this.stock).subscribe((response: Stock) => {
+      this.crudService.saveStock(this.stock).subscribe((response: Stock) => {
         this.router.navigate(['/dashboard']);
       });
     }
