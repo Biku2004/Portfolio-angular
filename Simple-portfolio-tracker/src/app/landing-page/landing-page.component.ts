@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class LandingPageComponent implements OnInit {
 
   topStocks: string[] = [];
+  news: any[] = [];
 
   constructor(
     private router: Router,
@@ -20,7 +21,9 @@ export class LandingPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.fetchTopStocks();
+    this.stockService.getMarketNews('AAPL').subscribe(data => {
+      this.news = data;
+    });
   }
 
   fetchTopStocks(): void {
@@ -32,5 +35,7 @@ export class LandingPageComponent implements OnInit {
   goToDashboard() {
     this.router.navigate(['/dashboard']);
   }
+
+
 
 }

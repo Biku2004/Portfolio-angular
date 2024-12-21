@@ -35,13 +35,28 @@
         </ul>
       </div> -->
 
-      <div class="w-2/5 h-96 ml-4 p-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
+      <!-- <div class="w-2/5 h-96 ml-4 p-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
         <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Top Stocks</h2>
         <ul id="top-stocks" class="text-gray-800 dark:text-gray-300">
           <li *ngFor="let stock of topStocks">
             {{ stock }}
           </li>
         </ul>
+      </div> -->
+      <div class="w-2/5 h-96 ml-4 p-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
+        <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Market News</h2>
+        <div class="overflow-y-auto h-80"> <!-- Added scrollable container -->
+          <ul id="market-news" class="text-gray-800 dark:text-gray-300">
+            <li *ngFor="let item of news" class="mb-4">
+              <a [href]="item.url" target="_blank" class="block mb-2">
+                <img [src]="item.image" alt="{{ item.source }}" class="w-12 h-12 inline-block mr-2">
+                <span class="font-bold">{{ item.headline }}</span>
+              </a>
+              <p class="text-sm">{{ item.summary }}</p>
+              <p class="text-xs text-gray-500">{{ item.source }} - {{ item.datetime | date:'short' }}</p>
+            </li>
+          </ul>
+        </div>
       </div>
       
     </div>
