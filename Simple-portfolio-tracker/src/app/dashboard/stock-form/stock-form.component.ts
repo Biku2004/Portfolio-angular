@@ -136,6 +136,26 @@ export class StockFormComponent implements OnInit {
     }
   }
 
+  fetchStockNameSuggestions() {
+    if (this.stock.name.length > 1) {
+      this.stockService.getStockSuggestions(this.stock.name).subscribe(data => {
+        if (data && data.result) {
+          this.suggestions = data.result;
+        } else {
+          this.suggestions = [];
+        }
+      });
+    } else {
+      this.suggestions = [];
+    }
+  }
+  
+    selectSuggestion(suggestion: any) {
+    this.stock.ticker = suggestion.displaySymbol;
+    this.stock.name = suggestion.description;
+    this.suggestions = [];
+  } 
+
   onSubmit() {
     if (this.isEditMode) {
       this.crudService.updateStock(this.stock).subscribe((response: Stock) => {

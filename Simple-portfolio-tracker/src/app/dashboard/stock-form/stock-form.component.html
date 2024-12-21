@@ -43,21 +43,27 @@
 
   <div class="mb-4">
     <label class="block text-gray-500 text-gray-300">Ticker</label>
-    <div class="flex">
+    <div class="relative">
       <input type="text" class="w-full p-2 border rounded" [(ngModel)]="stock.ticker" name="ticker" (input)="fetchStockSuggestions()" required>
-    </div>
-
-    <div *ngIf="suggestions.length > 0" class="mt-2">
-      <label class="block text-gray-700 dark:text-gray-300">Suggestions</label>
-      <select class="w-full p-2 border rounded" [(ngModel)]="stock.name" name="name">
-        <option *ngFor="let suggestion of suggestions" [value]="suggestion.description">{{ suggestion.description }} ({{ suggestion.displaySymbol }})</option>
-      </select>
+      <ul *ngIf="suggestions.length > 0" class="absolute z-10 w-full bg-white border border-gray-300 rounded mt-1">
+        <li *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)" class="p-2 cursor-pointer hover:bg-gray-200">
+          {{ suggestion.description }} ({{ suggestion.displaySymbol }})
+        </li>
+      </ul>
     </div>
   </div>
 
+
   <div class="mb-4">
     <label class="block text-gray-500 text-gray-300">Stock Name</label>
-    <input type="text" class="w-full p-2 border rounded" [(ngModel)]="stock.name" name="name" required>
+    <div class="relative">
+      <input type="text" class="w-full p-2 border rounded" [(ngModel)]="stock.name" name="name" (input)="fetchStockNameSuggestions()" required>
+      <ul *ngIf="suggestions.length > 0" class="absolute z-10 w-full bg-white border border-gray-300 rounded mt-">
+        <li *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)" class="p-2 cursor-pointer hover:bg-gray-200">
+          {{ suggestion.description }} ({{ suggestion.displaySymbol }})
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div class="mb-4">
