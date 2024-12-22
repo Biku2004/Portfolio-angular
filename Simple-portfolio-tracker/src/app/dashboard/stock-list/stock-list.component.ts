@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+// import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CrudService } from '../../services/crud.service';
@@ -28,6 +29,7 @@ interface Stock {
 })
 export class StockListComponent implements OnInit {
   stocks: Stock[] = [];
+  // @Output() stocksUpdated = new EventEmitter<Stock[]>();
   isEditStockFormVisible: boolean = false;
   selectedStock: Stock | null = null;
   searchTerm: string = '';
@@ -57,14 +59,6 @@ export class StockListComponent implements OnInit {
     });
   }
 
-  // updateCurrentPrice(stock: Stock) {
-  //   this.stockService.getStockPrice(stock.ticker).subscribe(data => {
-  //     stock.currentPrice = data.c;
-  //     if (stock.currentPrice !== undefined) {
-  //       stock.totalValue = stock.currentPrice * stock.quantity;
-  //     }
-  //   });
-  // }
 
   updateCurrentPrice(stock: Stock) {
     this.stockService.getStockPrice(stock.ticker).subscribe(data => {
@@ -78,16 +72,6 @@ export class StockListComponent implements OnInit {
     });
   }
 
-  // saveStock(stock: Stock): void {
-  //   this.crudService.updateStock(stock).subscribe(
-  //     () => {
-  //       this.loadStocks();
-  //     },
-  //     error => {
-  //       console.error('Error updating stock:', error);
-  //     }
-  //   );
-  // }
 
   saveStock(stock: Stock): void {
     this.crudService.updateStock(stock).subscribe(

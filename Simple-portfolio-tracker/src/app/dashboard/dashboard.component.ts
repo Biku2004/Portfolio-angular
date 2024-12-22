@@ -1,10 +1,15 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import * as Highcharts from 'highcharts';
 import { StockFormComponent } from './stock-form/stock-form.component';
 import { StockListComponent } from './stock-list/stock-list.component';
 import { StockService } from '../services/stock.service';
 import { CurrencyPipe, PercentPipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
+import { PortfolioService } from '../services/portfolio.service';
 
+// npm install highcharts
+
+// npm install --save-dev @types/highcharts
 interface Stock {
   id: number;
   name: string;
@@ -12,6 +17,8 @@ interface Stock {
   quantity: number;
   buyPrice: number;
   change: number;
+  profitLoss: number;
+  profitLossPercentage? : number;
 }
 @Component({
   selector: 'app-dashboard',
@@ -23,15 +30,19 @@ interface Stock {
 
 export class DashboardComponent implements OnInit {
   totalValue: number = 0;
-  topStock: Stock = { id: 0, name: 'N/A', ticker: 'N/A', quantity: 0, buyPrice: 0, change: 0 };
-  portfolioDistribution: any = {};
+  // topStock: Stock = { id: 0, name: 'N/A', ticker: 'N/A', quantity: 0, buyPrice: 0, change: 0 };
+  // portfolioDistribution: any = {};
+
+  topStock: Stock | null = null;
+  portfolioDistribution: { [key: string]: number } = {};
   isStockFormVisible: boolean = false;
   // isEditStockFormVisible: boolean = false;
 
-  constructor(private stockService: StockService) { }
+  constructor(private stockService: StockService, private portfolioService: PortfolioService) { }
 
   ngOnInit(): void {
     this.calculateMetrics();
+    this.loadPortfolioData();
   }
 
   calculateMetrics() {
@@ -51,15 +62,61 @@ export class DashboardComponent implements OnInit {
     this.isStockFormVisible = true;
   }
 
-  // showEditStockForm() {
-  //   this.isEditStockFormVisible = true;
-  // }
 
   hideStockForm() {
     this.isStockFormVisible = false;
   }
 
-  // hideEditStockForm() {
-  //   this.isEditStockFormVisible = false;
-  // }
+
+  loadPortfolioData(): void {
+    this.portfolioService.getTotalPortfolioValue().subscribe(
+      value => {
+        this.totalValue = value;
+      },
+      error => {
+        console.error('Error fetching total portfolio value:', error);
+      }
+    );
+
+    this.portfolioService.getTopPerformingStock().subscribe(
+      stock => {
+        this.topStock = stock;
+      },
+      error => {
+        console.error('Error fetching top performing stock:', error);
+      }
+    );
+
+    this.portfolioService.getPortfolioDistribution().subscribe(
+      distribution => {
+        this.portfolioDistribution = distribution;
+        this.updatePortfolioDistribution();
+      },
+      error => {
+        console.error('Error fetching portfolio distribution:', error);
+      }
+    );
+  }
+
+  updatePortfolioDistribution(): void {
+    const distributionData = Object.entries(this.portfolioDistribution).map(([key, value]) => ({
+      name: key,
+      y: value
+    }));
+
+    Highcharts.chart('portfolio-distribution', {
+      chart: {
+        type: 'pie'
+      },
+      title: {
+        text: 'Portfolio Distribution'
+      },
+      series: [{
+        type: 'pie',
+        name: 'Percentage',
+        colorByPoint: true,
+        data: distributionData
+      }]
+    } as any);
+  }
 }

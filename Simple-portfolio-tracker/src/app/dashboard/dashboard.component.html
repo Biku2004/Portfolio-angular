@@ -32,23 +32,23 @@
       </div>
     </div> -->
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
-    <div class="bg-white bg-gray-600 p-4 rounded-lg shadow-md w-1/2 md:w-2/3 ml-80">
-      <h2 class="text-lg font-bold mb-2">Total Portfolio Value</h2>
-      <p class="text-2xl" id="total-value">{{ totalValue | currency }}</p>
-    </div>
-    <div class="bg-white bg-gray-600 p-4 rounded-lg shadow-md w-1/2 md:w-2/3 ml-48">
-      <h2 class="text-lg font-bold mb-2">Top Performing Stock</h2>
-      <p class="text-2xl" id="top-stock" *ngIf="topStock && topStock.name">{{ topStock.name }} ({{ topStock.ticker }})</p>
-      <p class="text-lg" *ngIf="topStock && topStock.change">{{ topStock.change | percent }}</p>
-    </div>
-    <div class="bg-white bg-gray-600 p-4 rounded-lg shadow-md w-1/2 md:w-2/3 ml-20">
-      <h2 class="text-lg font-bold mb-2">Portfolio Distribution</h2>
-      <div id="portfolio-distribution" class="h-32">
-        <!-- Add your chart or distribution visualization here -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
+      <div class="bg-white bg-gray-600 p-4 rounded-lg shadow-md w-1/2 md:w-2/3 ml-80 h-2/3">
+        <h2 class="text-lg font-bold mb-2">Total Portfolio Value</h2>
+        <p class="text-2xl" id="total-value">{{ totalValue | currency }}</p>
+      </div>
+      <div class="bg-white bg-gray-600 p-4 rounded-lg shadow-md w-1/2 md:w-2/3 ml-48 h-2/3">
+        <h2 class="text-lg font-bold mb-2">Top Performing Stock</h2>
+        <p class="text-2xl" id="top-stock" *ngIf="topStock && topStock.name">{{ topStock.name }} ({{ topStock.ticker }})</p>
+        <!-- <p class="text-lg" *ngIf="topStock && topStock.profitLossPercentage">{{ topStock.profitLossPercentage | percent }}</p> -->
+      </div>
+      <div class="bg-white bg-gray-600 p-4 rounded-lg shadow-md w-1/2 md:w-2/3 ml-20 ">
+        <h2 class="text-lg font-bold mb-2">Portfolio Distribution</h2>
+        <div id="portfolio-distribution" class="h-48">
+          <!-- Highcharts will render the chart here -->
+        </div>
       </div>
     </div>
-  </div>
 
     
     <div class="text-center mt-6">
