@@ -73,8 +73,10 @@
         <tbody>
           <tr *ngFor="let stock of filteredStocks()">
             <td class="border px-4 py-2"><input type="checkbox" [(ngModel)]="stock.selected"></td>
-            <td class="border px-4 py-2">{{ stock.name }}</td>
-            <td class="border px-4 py-2">{{ stock.ticker }}</td>
+            <!-- <td class="border px-4 py-2">{{ stock.name }}</td>
+            <td class="border px-4 py-2">{{ stock.ticker }}</td> -->
+            <td class="border px-4 py-2 cursor-pointer" (click)="showFinancials(stock)">{{ stock.name }}</td>
+            <td class="border px-4 py-2 cursor-pointer" (click)="showFinancials(stock)">{{ stock.ticker }}</td>
             <td class="border px-4 py-2">{{ stock.quantity }}</td>
             <td class="border px-4 py-2">{{ stock.buyPrice | currency }}</td>
             <td class="border px-4 py-2">{{ stock.currentPrice | currency }}</td>
@@ -97,3 +99,47 @@
       <app-edit-stock-form></app-edit-stock-form>
     </div>
   </div> 
+
+  <div *ngIf="isFinancialsVisible" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+    <div class="p-6 rounded-lg shadow-lg max-w-lg w-full bg-white">
+      <button (click)="hideFinancials()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 float-right mr-3 mt-2">X</button>
+      <h2 class="text-lg font-bold mb-2">Basic Financials</h2>
+      <p><strong>10 Day Average Trading Volume:</strong> {{ financials?.metric?.['10DayAverageTradingVolume'] }}</p>
+      <p><strong>52 Week High:</strong> {{ financials?.metric?.['52WeekHigh'] }}</p>
+      <p><strong>52 Week High Date:</strong> {{ financials?.metric?.['52WeekHighDate'] }}</p>
+      <p><strong>52 Week Low:</strong> {{ financials?.metric?.['52WeekLow'] }}</p>
+      <p><strong>52 Week Low Date:</strong> {{ financials?.metric?.['52WeekLowDate'] }}</p>
+      <p><strong>Revenue Growth 5Y:</strong> {{ financials?.metric?.['revenueGrowth5Y'] }}</p>
+      <p><strong>Dividend Growth Rate 5Y:</strong> {{ financials?.metric?.['dividendGrowthRate5Y'] }}</p>
+    </div>
+  </div>
+
+  <!-- <div *ngIf="isFinancialsVisible" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
+    <div class="p-6 rounded-t-lg shadow-lg max-w-lg w-full bg-white transform transition-transform duration-300 ease-in-out translate-y-full">
+      <button (click)="hideFinancials()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 float-right mr-3 mt-2">X</button>
+      <h2 class="text-lg font-bold mb-2">Basic Financials</h2>
+      <div class="grid grid-cols-1 gap-4">
+        <div class="p-4 bg-gray-100 rounded-lg shadow-md">
+          <p><strong>10 Day Average Trading Volume:</strong> {{ financials?.metric?.['10DayAverageTradingVolume'] }}</p>
+        </div>
+        <div class="p-4 bg-gray-100 rounded-lg shadow-md">
+          <p><strong>52 Week High:</strong> {{ financials?.metric?.['52WeekHigh'] }}</p>
+        </div>
+        <div class="p-4 bg-gray-100 rounded-lg shadow-md">
+          <p><strong>52 Week High Date:</strong> {{ financials?.metric?.['52WeekHighDate'] }}</p>
+        </div>
+        <div class="p-4 bg-gray-100 rounded-lg shadow-md">
+          <p><strong>52 Week Low:</strong> {{ financials?.metric?.['52WeekLow'] }}</p>
+        </div>
+        <div class="p-4 bg-gray-100 rounded-lg shadow-md">
+          <p><strong>52 Week Low Date:</strong> {{ financials?.metric?.['52WeekLowDate'] }}</p>
+        </div>
+        <div class="p-4 bg-gray-100 rounded-lg shadow-md">
+          <p><strong>Revenue Growth 5Y:</strong> {{ financials?.metric?.['revenueGrowth5Y'] }}</p>
+        </div>
+        <div class="p-4 bg-gray-100 rounded-lg shadow-md">
+          <p><strong>Dividend Growth Rate 5Y:</strong> {{ financials?.metric?.['dividendGrowthRate5Y'] }}</p>
+        </div>
+      </div>
+    </div>
+  </div> -->

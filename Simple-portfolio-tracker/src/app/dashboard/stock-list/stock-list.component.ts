@@ -22,6 +22,18 @@ interface Stock {
   selected?: boolean;
 }
 
+interface BasicFinancials {
+  metric: {
+    "10DayAverageTradingVolume": number;
+    "52WeekHigh": number;
+    "52WeekHighDate": string;
+    "52WeekLow": number;
+    "52WeekLowDate": string;
+    "revenueGrowth5Y": number;
+    "dividendGrowthRate5Y": number;
+  };
+}
+
 @Component({
   selector: 'app-stock-list',
   standalone: true,
@@ -35,8 +47,8 @@ export class StockListComponent implements OnInit {
   isEditStockFormVisible: boolean = false;
   selectedStock: Stock | null = null;
   searchTerm: string = '';
-
-  
+  financials?: BasicFinancials | null = null;
+  isFinancialsVisible: boolean = false;
 
   constructor(
     private crudService: CrudService,
@@ -105,7 +117,17 @@ export class StockListComponent implements OnInit {
       });
     }
   }
+  showFinancials(stock: Stock) {
+    this.stockService.getBasicFinancials(stock.ticker).subscribe(financials => {
+      this.financials = financials;
+      this.isFinancialsVisible = true;
+    });
+  }
 
+  hideFinancials() {
+    this.isFinancialsVisible = false;
+    this.financials = null;
+  }
 
   // showEditStockForm(stock: Stock) {
   //   this.selectedStock = stock;
@@ -168,4 +190,6 @@ export class StockListComponent implements OnInit {
       stock.ticker.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
+
+
 }

@@ -30,19 +30,18 @@ interface Stock {
 
 export class DashboardComponent implements OnInit {
   totalValue: number = 0;
-  // topStock: Stock = { id: 0, name: 'N/A', ticker: 'N/A', quantity: 0, buyPrice: 0, change: 0 };
-  // portfolioDistribution: any = {};
-
   topStock: Stock | null = null;
   portfolioDistribution: { [key: string]: number } = {};
   isStockFormVisible: boolean = false;
-  // isEditStockFormVisible: boolean = false;
+  marketStatus: { exchange: string, isOpen: boolean } = { exchange: '', isOpen: false };
+
 
   constructor(private stockService: StockService, private portfolioService: PortfolioService) { }
 
   ngOnInit(): void {
     this.calculateMetrics();
     this.loadPortfolioData();
+    this.loadMarketStatus();
   }
 
   calculateMetrics() {
@@ -50,12 +49,24 @@ export class DashboardComponent implements OnInit {
       this.totalValue = metrics.totalValue;
       this.topStock = metrics.topStock || { id: 0, name: 'N/A', ticker: 'N/A', quantity: 0, buyPrice: 0 };
       this.portfolioDistribution = metrics.portfolioDistribution;
-      this.renderChart();
+      // this.renderChart();
     });
   }
 
-  renderChart() {
-    // Logic to render chart using a library like Chart.js or D3.js
+  // renderChart() {
+  //   // Logic to render chart using a library like Chart.js or D3.js
+  // }
+
+  loadMarketStatus(): void {
+    this.stockService.getMarketStatus('US').subscribe(
+      status => {
+        this.marketStatus.exchange = status.exchange;
+        this.marketStatus.isOpen = status.isOpen;
+      },
+      error => {
+        console.error('Error fetching market status:', error);
+      }
+    );
   }
 
   showStockForm() {

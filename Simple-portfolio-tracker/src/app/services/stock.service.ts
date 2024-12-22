@@ -36,6 +36,27 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+interface MarketStatus {
+  exchange: string;
+  holiday: string | null;
+  isOpen: boolean;
+  session: string | null;
+  t: number;
+  timezone: string;
+}
+
+interface BasicFinancials {
+  metric: {
+    "10DayAverageTradingVolume": number;
+    "52WeekHigh": number;
+    "52WeekHighDate": string;
+    "52WeekLow": number;
+    "52WeekLowDate": string;
+    "revenueGrowth5Y": number;
+    "dividendGrowthRate5Y": number;
+  };
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -49,7 +70,7 @@ export class StockService {
   }
 
   getMarketStatus(exchange: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/market-status/${exchange}`);
+    return this.http.get<any>(`${this.apiUrl}/${exchange}/market-status`);
   }
 
   getMarketNews(symbol: string): Observable<any> {
@@ -57,7 +78,7 @@ export class StockService {
   }
 
   getBasicFinancials(symbol: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/basic-financials/${symbol}`);
+    return this.http.get<any>(`${this.apiUrl}/${symbol}/basic-financials`);
   }
 
   getStockSuggestions(symbol: string): Observable<any> {
