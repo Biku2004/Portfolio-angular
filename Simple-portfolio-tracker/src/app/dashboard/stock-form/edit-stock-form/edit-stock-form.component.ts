@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CrudService } from '../../services/crud.service';
-import { StockService } from '../../services/stock.service';
+import { CrudService } from '../../../services/crud.service';
+import { StockService } from '../../../services/stock.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EventEmitterService } from '../../services/event-emitter.service';
+import { EventEmitterService } from '../../../services/event-emitter.service';
+import { FormsModule } from '@angular/forms';
 
 interface Stock {
   id?: number;
@@ -15,14 +15,14 @@ interface Stock {
 }
 
 @Component({
-  selector: 'app-stock-form',
+  selector: 'app-edit-stock-form',
   standalone: true,
   imports: [FormsModule, CommonModule],
-  templateUrl: './stock-form.component.html',
-  styleUrls: ['./stock-form.component.css']
+  templateUrl: './edit-stock-form.component.html',
+  styleUrl: './edit-stock-form.component.css'
 })
-export class StockFormComponent implements OnInit {
-  stock: Stock = {
+export class EditStockFormComponent implements OnInit{
+stock: Stock = {
     name: '',
     ticker: '',
     quantity: 0,

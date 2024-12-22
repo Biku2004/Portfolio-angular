@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
   topStock: Stock = { id: 0, name: 'N/A', ticker: 'N/A', quantity: 0, buyPrice: 0, change: 0 };
   portfolioDistribution: any = {};
   isStockFormVisible: boolean = false;
+  // isEditStockFormVisible: boolean = false;
 
   constructor(private stockService: StockService) { }
 
@@ -50,7 +51,15 @@ export class DashboardComponent implements OnInit {
     this.isStockFormVisible = true;
   }
 
+  // showEditStockForm() {
+  //   this.isEditStockFormVisible = true;
+  // }
+
   hideStockForm() {
     this.isStockFormVisible = false;
   }
+
+  // hideEditStockForm() {
+  //   this.isEditStockFormVisible = false;
+  // }
 }
