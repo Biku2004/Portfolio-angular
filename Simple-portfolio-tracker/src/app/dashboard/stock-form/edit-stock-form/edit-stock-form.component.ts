@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventEmitterService } from '../../../services/event-emitter.service';
 import { FormsModule } from '@angular/forms';
+import { StockEditService } from '../../../services/stockEdit.service';
 
 interface Stock {
   id?: number;
@@ -36,10 +37,30 @@ stock: Stock = {
     private stockService: StockService,
     private eventEmitterService: EventEmitterService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private stockEditService: StockEditService,
   ) { }
 
+  // ngOnInit(): void {
+  //   const stockId = this.route.snapshot.paramMap.get('id');
+  //   if (stockId) {
+  //     this.isEditMode = true;
+  //     this.crudService.getStockById(+stockId).subscribe((stock: Stock) => {
+  //       this.stock = stock;
+  //     });
+  //   }
+  // }
+
   ngOnInit(): void {
+    this.stockEditService.currentStock.subscribe(stock => {
+      if (stock) {
+        this.stock = stock;
+        this.isEditMode = true;
+      } else {
+        this.resetForm();
+      }
+    });
+
     const stockId = this.route.snapshot.paramMap.get('id');
     if (stockId) {
       this.isEditMode = true;
@@ -47,6 +68,16 @@ stock: Stock = {
         this.stock = stock;
       });
     }
+  }
+
+  resetForm() {
+    this.stock = {
+      name: '',
+      ticker: '',
+      quantity: 0,
+      buyPrice: 0
+    };
+    this.isEditMode = false;
   }
 
 
@@ -85,17 +116,39 @@ stock: Stock = {
     this.suggestions = [];
   } 
 
+  // onSubmit() {
+  //   if (this.isEditMode) {
+  //     this.crudService.updateStock(this.stock).subscribe((response: Stock) => {
+  //       this.eventEmitterService.onStockUpdated();
+  //       this.router.navigate(['/dashboard']);
+  //     });
+  //   } else {
+  //     this.crudService.saveStock(this.stock).subscribe((response: Stock) => {
+  //       this.eventEmitterService.onStockAdded();
+  //       this.router.navigate(['/dashboard']);
+  //     });
+  //   }
+  // }
+
   onSubmit() {
     if (this.isEditMode) {
-      this.crudService.updateStock(this.stock).subscribe((response: Stock) => {
+      this.crudService.updateStock(this.stock).subscribe(() => {
         this.eventEmitterService.onStockUpdated();
+        this.stockEditService.changeStock(null);
         this.router.navigate(['/dashboard']);
       });
     } else {
-      this.crudService.saveStock(this.stock).subscribe((response: Stock) => {
+      this.crudService.saveStock(this.stock).subscribe(() => {
         this.eventEmitterService.onStockAdded();
+        this.stockEditService.changeStock(null);
         this.router.navigate(['/dashboard']);
       });
     }
   }
+
+  onCancel() {
+    this.stockEditService.changeStock(null);
+    this.router.navigate(['/dashboard']);
+  }
+  
 }

@@ -7,6 +7,8 @@ import { StockService } from '../../services/stock.service';
 import { EventEmitterService } from '../../services/event-emitter.service';
 import { EditStockFormComponent } from "../stock-form/edit-stock-form/edit-stock-form.component";
 import { FormsModule } from '@angular/forms';
+import { StockEditService } from '../../services/stockEdit.service';
+
 interface Stock {
   id?: number;
   name: string;
@@ -34,11 +36,14 @@ export class StockListComponent implements OnInit {
   selectedStock: Stock | null = null;
   searchTerm: string = '';
 
+  
+
   constructor(
     private crudService: CrudService,
     private stockService: StockService,
     private router: Router,
-    private eventEmitterService: EventEmitterService
+    private eventEmitterService: EventEmitterService,
+    private stockEditService: StockEditService
   ) { }
 
   ngOnInit(): void {
@@ -89,9 +94,9 @@ export class StockListComponent implements OnInit {
     this.loadStocks();
   }
 
-  editStock(stock: Stock) {
-    this.router.navigate(['/edit-stock', stock.id]);
-  }
+  // editStock(stock: Stock) {
+  //   this.router.navigate(['/edit-stock', stock.id]);
+  // }
 
   deleteStock(stock: Stock): void {
     if (stock.id) {
@@ -102,15 +107,25 @@ export class StockListComponent implements OnInit {
   }
 
 
+  // showEditStockForm(stock: Stock) {
+  //   this.selectedStock = stock;
+  //   this.isEditStockFormVisible = true;
+  // }
+
+  
+  // hideEditStockForm() {
+  //   this.isEditStockFormVisible = false;
+  //   this.selectedStock = null;
+  // }
+
   showEditStockForm(stock: Stock) {
-    this.selectedStock = stock;
+    this.stockEditService.changeStock(stock);
     this.isEditStockFormVisible = true;
   }
 
-  
   hideEditStockForm() {
     this.isEditStockFormVisible = false;
-    this.selectedStock = null;
+    this.stockEditService.changeStock(null);
   }
 
   onSave(updatedStock: Stock) {
