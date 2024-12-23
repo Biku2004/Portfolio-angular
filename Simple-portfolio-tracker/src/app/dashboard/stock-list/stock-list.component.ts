@@ -69,6 +69,8 @@ export class StockListComponent implements OnInit {
     }
   }
 
+
+
   loadStocks() {
     this.crudService.getStocks().subscribe((stocks: Stock[]) => {
       this.stocks = stocks;
