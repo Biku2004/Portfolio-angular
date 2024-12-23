@@ -49,13 +49,8 @@ export class DashboardComponent implements OnInit {
       this.totalValue = metrics.totalValue;
       this.topStock = metrics.topStock || { id: 0, name: 'N/A', ticker: 'N/A', quantity: 0, buyPrice: 0 };
       this.portfolioDistribution = metrics.portfolioDistribution;
-      // this.renderChart();
     });
   }
-
-  // renderChart() {
-  //   // Logic to render chart using a library like Chart.js or D3.js
-  // }
 
   loadMarketStatus(): void {
     this.stockService.getMarketStatus('US').subscribe(

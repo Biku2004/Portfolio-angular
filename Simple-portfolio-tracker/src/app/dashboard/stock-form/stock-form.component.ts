@@ -30,6 +30,8 @@ export class StockFormComponent implements OnInit {
   };
   suggestions: any[] = [];
   isEditMode: boolean = false;
+  existingStocks: Stock[] = [];
+  errorMessage: string = '';
 
   constructor(
     private crudService: CrudService,
@@ -40,6 +42,7 @@ export class StockFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadExistingStocks();
     const stockId = this.route.snapshot.paramMap.get('id');
     if (stockId) {
       this.isEditMode = true;
@@ -85,7 +88,36 @@ export class StockFormComponent implements OnInit {
     this.suggestions = [];
   } 
 
-  onSubmit() {
+  // onSubmit() {
+  //   if (this.isEditMode) {
+  //     this.crudService.updateStock(this.stock).subscribe((response: Stock) => {
+  //       this.eventEmitterService.onStockUpdated();
+  //       this.router.navigate(['/dashboard']);
+  //     });
+  //   } else {
+  //     this.crudService.saveStock(this.stock).subscribe((response: Stock) => {
+  //       this.eventEmitterService.onStockAdded();
+  //       this.router.navigate(['/dashboard']);
+  //     });
+  //   }
+  // }
+
+  loadExistingStocks(): void {
+    this.crudService.getStocks().subscribe((stocks: Stock[]) => {
+      this.existingStocks = stocks;
+    });
+  }
+
+  stockExists(ticker: string): boolean {
+    return this.existingStocks.some(stock => stock.ticker === ticker);
+  }
+
+  onSubmit(): void {
+    if (!this.isEditMode && this.stockExists(this.stock.ticker)) {
+      this.errorMessage = 'Stock already exists!';
+      return;
+    }
+
     if (this.isEditMode) {
       this.crudService.updateStock(this.stock).subscribe((response: Stock) => {
         this.eventEmitterService.onStockUpdated();
@@ -99,3 +131,4 @@ export class StockFormComponent implements OnInit {
     }
   }
 }
+

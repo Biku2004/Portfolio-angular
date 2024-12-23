@@ -41,15 +41,6 @@ stock: Stock = {
     private stockEditService: StockEditService,
   ) { }
 
-  // ngOnInit(): void {
-  //   const stockId = this.route.snapshot.paramMap.get('id');
-  //   if (stockId) {
-  //     this.isEditMode = true;
-  //     this.crudService.getStockById(+stockId).subscribe((stock: Stock) => {
-  //       this.stock = stock;
-  //     });
-  //   }
-  // }
 
   ngOnInit(): void {
     this.stockEditService.currentStock.subscribe(stock => {
@@ -116,19 +107,6 @@ stock: Stock = {
     this.suggestions = [];
   } 
 
-  // onSubmit() {
-  //   if (this.isEditMode) {
-  //     this.crudService.updateStock(this.stock).subscribe((response: Stock) => {
-  //       this.eventEmitterService.onStockUpdated();
-  //       this.router.navigate(['/dashboard']);
-  //     });
-  //   } else {
-  //     this.crudService.saveStock(this.stock).subscribe((response: Stock) => {
-  //       this.eventEmitterService.onStockAdded();
-  //       this.router.navigate(['/dashboard']);
-  //     });
-  //   }
-  // }
 
   onSubmit() {
     if (this.isEditMode) {
