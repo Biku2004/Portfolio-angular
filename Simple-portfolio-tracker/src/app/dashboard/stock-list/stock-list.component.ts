@@ -8,6 +8,7 @@ import { EventEmitterService } from '../../services/event-emitter.service';
 import { EditStockFormComponent } from "../stock-form/edit-stock-form/edit-stock-form.component";
 import { FormsModule } from '@angular/forms';
 import { StockEditService } from '../../services/stockEdit.service';
+import { StockFormComponent } from '../stock-form/stock-form.component';
 
 interface Stock {
   id?: number;
@@ -37,7 +38,7 @@ interface BasicFinancials {
 @Component({
   selector: 'app-stock-list',
   standalone: true,
-  imports: [CommonModule, EditStockFormComponent,FormsModule],
+  imports: [CommonModule, EditStockFormComponent,FormsModule,StockFormComponent],
   templateUrl: './stock-list.component.html',
   styleUrls: ['./stock-list.component.css']
 })
@@ -49,6 +50,7 @@ export class StockListComponent implements OnInit {
   searchTerm: string = '';
   financials?: BasicFinancials | null = null;
   isFinancialsVisible: boolean = false;
+  isStockFormVisible: boolean = false;
 
   constructor(
     private crudService: CrudService,
@@ -106,9 +108,6 @@ export class StockListComponent implements OnInit {
     this.loadStocks();
   }
 
-  // editStock(stock: Stock) {
-  //   this.router.navigate(['/edit-stock', stock.id]);
-  // }
 
   deleteStock(stock: Stock): void {
     if (stock.id) {
@@ -117,17 +116,6 @@ export class StockListComponent implements OnInit {
       });
     }
   }
-  // showFinancials(stock: Stock) {
-  //   this.stockService.getBasicFinancials(stock.ticker).subscribe(financials => {
-  //     this.financials = financials;
-  //     this.isFinancialsVisible = true;
-  //   });
-  // }
-
-  // hideFinancials() {
-  //   this.isFinancialsVisible = false;
-  //   this.financials = null;
-  // }
 
   showFinancials(stock: Stock) {
     this.stockService.getBasicFinancials(stock.ticker).subscribe(financials => {
@@ -141,16 +129,7 @@ export class StockListComponent implements OnInit {
     this.financials = null;
   }
 
-  // showEditStockForm(stock: Stock) {
-  //   this.selectedStock = stock;
-  //   this.isEditStockFormVisible = true;
-  // }
 
-  
-  // hideEditStockForm() {
-  //   this.isEditStockFormVisible = false;
-  //   this.selectedStock = null;
-  // }
 
   showEditStockForm(stock: Stock) {
     this.stockEditService.changeStock(stock);
@@ -160,6 +139,15 @@ export class StockListComponent implements OnInit {
   hideEditStockForm() {
     this.isEditStockFormVisible = false;
     this.stockEditService.changeStock(null);
+  }
+
+  showStockForm() {
+    this.isStockFormVisible = true;
+  }
+
+
+  hideStockForm() {
+    this.isStockFormVisible = false;
   }
 
   onSave(updatedStock: Stock) {

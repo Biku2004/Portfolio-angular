@@ -64,14 +64,14 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  showStockForm() {
-    this.isStockFormVisible = true;
-  }
+  // showStockForm() {
+  //   this.isStockFormVisible = true;
+  // }
 
 
-  hideStockForm() {
-    this.isStockFormVisible = false;
-  }
+  // hideStockForm() {
+  //   this.isStockFormVisible = false;
+  // }
 
 
   loadPortfolioData(): void {
