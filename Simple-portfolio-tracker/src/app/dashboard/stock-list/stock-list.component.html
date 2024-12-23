@@ -73,9 +73,11 @@
         <tbody>
           <tr *ngFor="let stock of filteredStocks()">
             <td class="border px-4 py-2"><input type="checkbox" [(ngModel)]="stock.selected"></td>
-            <!-- <td class="border px-4 py-2">{{ stock.name }}</td>
-            <td class="border px-4 py-2">{{ stock.ticker }}</td> -->
-            <td class="border px-4 py-2 cursor-pointer" (click)="showFinancials(stock)">{{ stock.name }}</td>
+            <!-- <td class="border px-4 py-2 cursor-pointer" (click)="showFinancials(stock)">{{ stock.name }} </td> -->
+            <td class="border px-4 py-2 cursor-pointer">
+              <span (click)="showFinancials(stock)">{{ stock.name }}</span>
+              <button class="expand-button ml-2" (click)="showFinancials(stock)">[Expand]</button>
+            </td>
             <td class="border px-4 py-2 cursor-pointer" (click)="showFinancials(stock)">{{ stock.ticker }}</td>
             <td class="border px-4 py-2">{{ stock.quantity }}</td>
             <td class="border px-4 py-2">{{ stock.buyPrice | currency }}</td>

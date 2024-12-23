@@ -92,4 +92,19 @@
     cursor: pointer;
     margin-top: 20px;
   }
+
+  .expand-button {
+    padding: 4px 8px;
+    font-size: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .expand-icon {
+    width: 16px;
+    height: 16px;
+  }
   
