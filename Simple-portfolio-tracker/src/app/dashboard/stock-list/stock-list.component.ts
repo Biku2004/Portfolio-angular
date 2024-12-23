@@ -117,6 +117,18 @@ export class StockListComponent implements OnInit {
       });
     }
   }
+  // showFinancials(stock: Stock) {
+  //   this.stockService.getBasicFinancials(stock.ticker).subscribe(financials => {
+  //     this.financials = financials;
+  //     this.isFinancialsVisible = true;
+  //   });
+  // }
+
+  // hideFinancials() {
+  //   this.isFinancialsVisible = false;
+  //   this.financials = null;
+  // }
+
   showFinancials(stock: Stock) {
     this.stockService.getBasicFinancials(stock.ticker).subscribe(financials => {
       this.financials = financials;

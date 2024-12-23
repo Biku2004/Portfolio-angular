@@ -1,4 +1,4 @@
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .container {
       padding: 1rem;
     }
@@ -16,7 +16,80 @@
     button {
       margin-bottom: 0.5rem;
     }
+  } */
+
+
+  /* Add this to your stock-list.component.css file */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
   }
-
-
+  
+  .modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .modal {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: -100%;
+    height: 50vh;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  }
+  
+  .modal::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    height: 60px;
+    background-color: white;
+    transform: rotate(-2deg);
+    z-index: -1;
+  }
+  
+  .modal::after {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    height: 60px;
+    background-color: white;
+    transform: rotate(2deg);
+    z-index: -1;
+  }
+  
+  .modal.show {
+    bottom: 0;
+  }
+  
+  .modal-content {
+    padding: 30px;
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+  .close-button {
+    padding: 8px 16px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
   
