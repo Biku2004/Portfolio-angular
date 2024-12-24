@@ -6,6 +6,7 @@ import { CurrencyPipe, PercentPipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { PortfolioService } from '../../services/portfolio.service';
 import { interval, Subscription } from 'rxjs';
+import { MarketStatusService } from '../../services/marketStatus.service';
 
 interface Stock {
   id: number;
@@ -36,12 +37,17 @@ export class PortfolioCardsComponent implements OnInit {
   isSpinning: boolean = false;
   // private updateSubscription: Subscription | null = null;
 
-  constructor(private stockService: StockService, private portfolioService: PortfolioService) { }
+  constructor(
+    private stockService: StockService, 
+    private marketService: MarketStatusService, 
+    private portfolioService: PortfolioService,
+  
+  ) { }
 
   ngOnInit(): void {
     this.calculateMetrics();
     this.loadPortfolioData();
-    // this.loadMarketStatus();
+    this.loadMarketStatus();
   }
 
   // loadDashboardData(): void {
@@ -58,7 +64,7 @@ export class PortfolioCardsComponent implements OnInit {
   }
 
   loadMarketStatus(): void {
-    this.stockService.getMarketStatus('US').subscribe(
+    this.marketService.getMarketStatus('US').subscribe(
       status => {
         this.marketStatus.exchange = status.exchange;
         this.marketStatus.isOpen = status.isOpen;

@@ -35,9 +35,9 @@ export class StockService {
     return this.http.get<any>(`${this.apiUrl}/${symbol}/price`);
   }
 
-  getMarketStatus(exchange: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${exchange}/market-status`);
-  }
+  // getMarketStatus(exchange: string): Observable<any> {
+  //   return this.http.get<any>(`${this.apiUrl}/${exchange}/market-status`);
+  // }
 
   getMarketNews(symbol: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${symbol}/market-news`);
