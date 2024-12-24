@@ -113,6 +113,7 @@ export class PortfolioCardsComponent implements OnInit {
 
     Highcharts.chart('portfolio-distribution', {
       chart: {
+        height: null,
         type: 'pie'
       },
       title: {
