@@ -58,7 +58,7 @@ export interface Stock {
   providedIn: 'root'
 })
 export class PortfolioService {
-  private apiUrl = 'https://backend-portfolio-env.eba-hb9e3thu.ap-south-1.elasticbeanstalk.com/:442/api/stocks';
+  private apiUrl = 'https://portfolio-tracker-backend-env.eba-cntjmzha.ap-south-1.elasticbeanstalk.com:443/api/portfolio';
 
   constructor(private http: HttpClient) {}
 
