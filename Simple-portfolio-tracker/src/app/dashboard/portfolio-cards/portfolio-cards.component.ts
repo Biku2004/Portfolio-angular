@@ -119,6 +119,9 @@ export class PortfolioCardsComponent implements OnInit {
       title: {
         text: 'Portfolio Distribution'
       },
+      accessibility: {
+        enabled: false
+      },
       series: [{
         type: 'pie',
         name: 'Percentage',
