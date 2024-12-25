@@ -15,7 +15,7 @@ interface MarketStatus {
   providedIn: 'root'
 })
 export class MarketStatusService {
-  private apiUrl = 'http://localhost:8080/api/stocks';
+  private apiUrl = 'http://backend-portfolio-env.eba-hb9e3thu.ap-south-1.elasticbeanstalk.com:8080/api/stocks';
 
   constructor(private http: HttpClient) {}
 
