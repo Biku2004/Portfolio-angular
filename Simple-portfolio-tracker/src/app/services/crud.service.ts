@@ -18,7 +18,7 @@ interface Stock {
   providedIn: 'root'
 })
 export class CrudService {
-  private apiUrl = 'https://portfolio-tracker-backend-env-1.eba-m3esanpy.ap-south-1.elasticbeanstalk.com/api/stocks';
+  private apiUrl = 'http://backend-env.eba-mpeky2ew.ap-south-1.elasticbeanstalk.com/api/stocks';
 
   constructor(private http: HttpClient) {}
 
