@@ -12,9 +12,7 @@ The **Simple Portfolio Tracker** is a web application built with **Angular 19** 
   2.  **Angular CLI** (version 15 or higher): Install using:
     
   ```
-  
   npm install -g @angular/cli
-  
   ```
     
 ## Features
@@ -52,45 +50,35 @@ The **Simple Portfolio Tracker** is a web application built with **Angular 19** 
 1.  Clone the repository:
     
 ```
-
 git clone https://github.com/Biku2004/Portfolio-angular.git
-
 ```
     
 2.  Navigate to the project directory:
     
     
 ```
-
 cd Simple-portfolio-tracker
-
 ```
     
 3.  Install dependencies:
     
     
 ```
-
 npm install
-
 ```
     
 4.  Run the application:
     
     
 ```
-
 ng serve
-
 ```
     
 5.  Open the application in your browser:
     
     
 ```
-
 http://localhost:4200/
-
 ```
     
 
