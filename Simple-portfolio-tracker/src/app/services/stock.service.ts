@@ -27,7 +27,7 @@ interface BasicFinancials {
   providedIn: 'root'
 })
 export class StockService {
-  private apiUrl = 'https://backend-env.eba-mpeky2ew.ap-south-1.elasticbeanstalk.com/api/stocks';
+  private apiUrl = 'http://backend-env.eba-mpeky2ew.ap-south-1.elasticbeanstalk.com/api/stocks';
 
   constructor(private http: HttpClient) {}
 
