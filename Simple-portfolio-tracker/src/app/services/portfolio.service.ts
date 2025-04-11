@@ -37,7 +37,7 @@
 // }
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -59,7 +59,7 @@ export interface Stock {
 })
 export class PortfolioService {
   
-  private apiUrl = 'http://backend-env.eba-mpeky2ew.ap-south-1.elasticbeanstalk.com/api/portfolio';
+  private apiUrl = 'http://localhost:8080/api/portfolio';
 
   constructor(private http: HttpClient) {}
 
@@ -82,14 +82,7 @@ export class PortfolioService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
-    } else {
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    return throwError(
-      'Something went wrong; please try again later.');
+    console.error('An error occurred:', error);
+    return throwError('Something went wrong; please try again later.');
   }
 }

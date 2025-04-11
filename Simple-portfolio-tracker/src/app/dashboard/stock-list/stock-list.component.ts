@@ -1,4 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -9,6 +8,9 @@ import { EditStockFormComponent } from "../stock-form/edit-stock-form/edit-stock
 import { FormsModule } from '@angular/forms';
 import { StockEditService } from '../../services/stockEdit.service';
 import { StockFormComponent } from '../stock-form/stock-form.component';
+import { HttpClient } from '@angular/common/http'; // Import HttpClient for API calls
+// import { saveAs } from 'file-saver'; // Import file-saver for downloading files
+import { saveAs } from 'file-saver';
 
 interface Stock {
   id?: number;
@@ -38,13 +40,12 @@ interface BasicFinancials {
 @Component({
   selector: 'app-stock-list',
   standalone: true,
-  imports: [CommonModule, EditStockFormComponent,FormsModule,StockFormComponent],
+  imports: [CommonModule, EditStockFormComponent, FormsModule, StockFormComponent],
   templateUrl: './stock-list.component.html',
   styleUrls: ['./stock-list.component.css']
 })
 export class StockListComponent implements OnInit {
   stocks: Stock[] = [];
-  // @Output() stocksUpdated = new EventEmitter<Stock[]>();
   isEditStockFormVisible: boolean = false;
   selectedStock: Stock | null = null;
   searchTerm: string = '';
@@ -57,7 +58,8 @@ export class StockListComponent implements OnInit {
     private stockService: StockService,
     private router: Router,
     private eventEmitterService: EventEmitterService,
-    private stockEditService: StockEditService
+    private stockEditService: StockEditService,
+    private http: HttpClient // Inject HttpClient for making HTTP requests
   ) { }
 
   ngOnInit(): void {
@@ -69,8 +71,6 @@ export class StockListComponent implements OnInit {
     }
   }
 
-
-
   loadStocks() {
     this.crudService.getStocks().subscribe((stocks: Stock[]) => {
       this.stocks = stocks;
@@ -79,7 +79,6 @@ export class StockListComponent implements OnInit {
       });
     });
   }
-
 
   updateCurrentPrice(stock: Stock) {
     this.stockService.getStockPrice(stock.ticker).subscribe(data => {
@@ -93,11 +92,9 @@ export class StockListComponent implements OnInit {
     });
   }
 
-
   saveStock(stock: Stock): void {
     this.crudService.updateStock(stock).subscribe(
       () => {
-        // Removed this.loadStocks to prevent recursive call
         console.log('Stock updated successfully');
       },
       error => {
@@ -112,7 +109,6 @@ export class StockListComponent implements OnInit {
       this.loadStocks();
     }, 10000);
   }
-
 
   deleteStock(stock: Stock): void {
     if (stock.id) {
@@ -134,8 +130,6 @@ export class StockListComponent implements OnInit {
     this.financials = null;
   }
 
-
-
   showEditStockForm(stock: Stock) {
     this.stockEditService.changeStock(stock);
     this.isEditStockFormVisible = true;
@@ -149,7 +143,6 @@ export class StockListComponent implements OnInit {
   showStockForm() {
     this.isStockFormVisible = true;
   }
-
 
   hideStockForm() {
     this.isStockFormVisible = false;
@@ -196,5 +189,22 @@ export class StockListComponent implements OnInit {
     );
   }
 
-
+  // New method to download Excel file from backend
+  exportToExcel(): void {
+    if (this.stocks.length === 0) {
+      alert('No stocks available to export.');
+      return;
+    }
+    this.http.get('http://localhost:8080/api/stocks/export/excel', { responseType: 'blob' })
+      .subscribe({
+        next: (blob: Blob) => {
+          const currentDate = new Date().toISOString().slice(0, 10);
+          saveAs(blob, `Stock_Portfolio_${currentDate}.xlsx`);
+        },
+        error: (error) => {
+          console.error('Error downloading Excel file:', error);
+          alert('Failed to download Excel file. Please try again.');
+        }
+      });
+  }
 }

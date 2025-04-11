@@ -18,7 +18,7 @@ interface Stock {
   providedIn: 'root'
 })
 export class CrudService {
-  private apiUrl = 'http://backend-env.eba-mpeky2ew.ap-south-1.elasticbeanstalk.com/api/stocks';
+  private apiUrl = 'http://localhost:8080/api/stocks';
 
   constructor(private http: HttpClient) {}
 
